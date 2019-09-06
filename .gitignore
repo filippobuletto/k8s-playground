@@ -1,0 +1,4 @@
+*examplecert.yaml
+*.log
+.vagrant
+admin.conf

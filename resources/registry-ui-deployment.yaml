@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-ui-deployment
+  namespace: kube-registry
+  labels:
+    app: registry-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry-ui
+  template:
+    metadata:
+      labels:
+        app: registry-ui
+    spec:
+      containers:
+      - name: registry-ui
+        image: joxit/docker-registry-ui
+        ports:
+        - containerPort: 80
+        env:
+        - name: DELETE_IMAGES
+          value: "true"
+        - name: URL
+          value: "https://registry.example.kube"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-ui-service
+  namespace: kube-registry
+spec:
+  ports:
+  - port: 9376
+    protocol: TCP
+    targetPort: 80
+    name: web
+  selector:
+    app: registry-ui

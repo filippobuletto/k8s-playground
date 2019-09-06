@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: registry-ingress
+  namespace: kube-registry
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+    - hosts:
+      - registry.example.kube
+      secretName: examplecert
+  rules:
+  - host: registry.example.kube
+    http:
+      paths:
+      - path: /v2
+        backend:
+          serviceName: docker-registry
+          servicePort: registry
+      - path: /
+        backend:
+          serviceName: registry-ui-service
+          servicePort: web
