@@ -79,7 +79,7 @@ kubectl expose deployment nginx-deployment --name=web-service --type=NodePort
 Display information about the Service:
 
 ```bash
-kubectl get services web-service
+kubectl get service web-service
 ```
 
 Access the service from the node port, ex: [http://192.168.205.10:31751/](http://192.168.205.10:31751/).
@@ -87,7 +87,7 @@ Access the service from the node port, ex: [http://192.168.205.10:31751/](http:/
 To delete the Service, enter this command:
 
 ```bash
-kubectl delete services web-service
+kubectl delete service web-service
 ```
 
 To delete the Deployment, the ReplicaSet, and the Pods that are running the Hello World application, enter this command:
