@@ -228,6 +228,10 @@ Create TLS Secret using [mkcert](https://github.com/FiloSottile/mkcert):
 mkcert -install
 mkcert example.kube
 ```
+that will generate 2 files in the current folder:
+
+- example.kube-key.pem 
+- example.kube.pem
 
 Then create the secret in the cluster via:
 
@@ -316,7 +320,7 @@ spec:
     app: registry-ui
 ```
 
-Configure an ingress to access registry and ui:
+Configure an ingress to access registry and UI:
 
 ```yaml
 apiVersion: extensions/v1beta1
