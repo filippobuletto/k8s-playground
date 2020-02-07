@@ -55,7 +55,9 @@ sudo sh -c "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-
 
 sudo apt-get update
 
-sudo apt-get install -y kubeadm=1.15.1-00 kubelet=1.15.1-00 kubectl=1.15.1-00
+sudo apt-get install -y kubeadm=1.17.2-00 kubelet=1.17.2-00 kubectl=1.17.2-00
+
+sudo apt-mark hold kubelet kubeadm kubectl
 
 echo
 echo "Installed - now to get Calico Project network plugin"
@@ -64,7 +66,7 @@ sleep 3
 
 export CALICO_IPV4POOL_CIDR=172.16.0.0/16
 
-sudo kubeadm init --kubernetes-version 1.15.1 \
+sudo kubeadm init --kubernetes-version 1.17.2 \
    --pod-network-cidr $CALICO_IPV4POOL_CIDR \
    --apiserver-advertise-address=192.168.205.10 \
    --token ktorbm.2xrevimbq274bwg6 \
@@ -87,7 +89,7 @@ sudo chown $(id -u vagrant):$(id -g vagrant) /home/vagrant/.kube/config
 
 echo "Download Calico plugin and RBAC YAML files and apply"
 
-wget https://docs.projectcalico.org/v3.8/manifests/calico.yaml -O calico.yaml
+wget https://docs.projectcalico.org/manifests/calico.yaml -O calico.yaml
 sed -i -e "s?192.168.0.0/16?$CALICO_IPV4POOL_CIDR?g" calico.yaml
 kubectl apply -f calico.yaml --kubeconfig /etc/kubernetes/admin.conf
 
@@ -133,7 +135,9 @@ sudo sh -c "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-
 
 sudo apt-get update
 
-sudo apt-get install -y kubeadm=1.15.1-00 kubelet=1.15.1-00 kubectl=1.15.1-00
+sudo apt-get install -y kubeadm=1.17.2-00 kubelet=1.17.2-00 kubectl=1.17.2-00
+
+sudo apt-mark hold kubelet kubeadm kubectl
 
 sudo kubeadm join --token ktorbm.2xrevimbq274bwg6 --discovery-token-unsafe-skip-ca-verification 192.168.205.10:6443 | tee -a /vagrant/kubeadm-join.log
 

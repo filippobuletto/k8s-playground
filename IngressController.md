@@ -5,7 +5,7 @@
 As per [https://metallb.universe.tf/installation/](https://metallb.universe.tf/installation/):
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
+kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.3/manifests/metallb.yaml
 ```
 
 Apply [Layer 2 configuration](https://metallb.universe.tf/configuration/#layer-2-configuration):
